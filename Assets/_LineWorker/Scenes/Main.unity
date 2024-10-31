@@ -677,12 +677,25 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1390617804750620, guid: eb75309886f28435eb2eb72850cc845f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1639059707197252, guid: eb75309886f28435eb2eb72850cc845f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1683467680954974, guid: eb75309886f28435eb2eb72850cc845f, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1684210284427676, guid: eb75309886f28435eb2eb72850cc845f, type: 3}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114313855331922448, guid: eb75309886f28435eb2eb72850cc845f,
+        type: 3}
+      propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224292039612946156, guid: eb75309886f28435eb2eb72850cc845f,
@@ -3079,11 +3092,27 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11416178, guid: 44eeec2a2c5eb480bbe9050961e27d63, type: 3}
+      propertyPath: bannerAdPosition
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11416178, guid: 44eeec2a2c5eb480bbe9050961e27d63, type: 3}
       propertyPath: showInterstitialAd
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11416178, guid: 44eeec2a2c5eb480bbe9050961e27d63, type: 3}
       propertyPath: watchAdToEarnCoins
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11441840, guid: 44eeec2a2c5eb480bbe9050961e27d63, type: 3}
+      propertyPath: disableSharing
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11459406, guid: 44eeec2a2c5eb480bbe9050961e27d63, type: 3}
+      propertyPath: disable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11468440, guid: 44eeec2a2c5eb480bbe9050961e27d63, type: 3}
+      propertyPath: disable
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114160112382929586, guid: 44eeec2a2c5eb480bbe9050961e27d63,
@@ -5691,7 +5720,7 @@ RectTransform:
   m_GameObject: {fileID: 1110817840}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1894985990}
@@ -6912,7 +6941,7 @@ RectTransform:
   m_GameObject: {fileID: 1390072571}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 300610790}
@@ -6981,8 +7010,8 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 218131795}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: WatchAdForCoins
+        m_TargetAssemblyTypeName: _LineWorker.UIManager, Assembly-CSharp
+        m_MethodName: WatchRewardedAd
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -8232,13 +8261,13 @@ RectTransform:
   - {fileID: 1214707212}
   - {fileID: 2126839852}
   - {fileID: 1257205419}
+  - {fileID: 105805048}
   - {fileID: 1390072572}
   - {fileID: 1110817841}
   - {fileID: 478281501}
   - {fileID: 20562696}
   - {fileID: 497489785}
   - {fileID: 1549654779}
-  - {fileID: 105805048}
   - {fileID: 1500963743}
   - {fileID: 1372011435}
   - {fileID: 806485757}

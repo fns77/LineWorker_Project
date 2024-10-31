@@ -257,18 +257,18 @@ PlayerSettings:
   templateDefaultScene: 
   useCustomMainManifest: 0
   useCustomLauncherManifest: 0
-  useCustomMainGradleTemplate: 0
+  useCustomMainGradleTemplate: 1
   useCustomLauncherGradleManifest: 0
   useCustomBaseGradleTemplate: 0
-  useCustomGradlePropertiesTemplate: 0
-  useCustomGradleSettingsTemplate: 0
+  useCustomGradlePropertiesTemplate: 1
+  useCustomGradleSettingsTemplate: 1
   useCustomProguardFile: 0
-  AndroidTargetArchitectures: 7
+  AndroidTargetArchitectures: 3
   AndroidTargetDevices: 0
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: '{dedicated}: Desktop/123456.keystore'
-  AndroidKeyaliasName: 123456
+  AndroidKeystoreName: D:/Gawe/Tests/Keystore/applaystudio.keystore
+  AndroidKeyaliasName: applaystudio
   AndroidEnableArmv9SecurityFeatures: 0
   AndroidBuildApkPerCpuArchitecture: 0
   AndroidTVCompatibility: 1
@@ -878,7 +878,7 @@ PlayerSettings:
   webGLMemoryGeometricGrowthCap: 96
   webGLPowerPreference: 2
   scriptingDefineSymbols:
-    Android: 
+    Android: GLEY_ADMOB;GLEY_PATCH_ADMOB
     Nintendo Switch: EASY_MOBILE;EASY_MOBILE_PRO;EM_ADMOB;EM_UIAP
     PS4: EASY_MOBILE;EASY_MOBILE_PRO;EM_ADMOB;EM_UIAP
     Standalone: 

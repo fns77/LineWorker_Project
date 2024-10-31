@@ -1,10 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Gley.MobileAds;
 
-#if EASY_MOBILE
-using EasyMobile;
-#endif
 
 namespace _LineWorker
 {
@@ -12,7 +10,6 @@ namespace _LineWorker
     {
         public static PremiumFeaturesManager Instance { get; private set; }
 
-        [Header("Check to enable premium features (require EasyMobile plugin)")]
         public bool enablePremiumFeatures = true;
 
         void Awake()
@@ -27,12 +24,12 @@ namespace _LineWorker
                 DontDestroyOnLoad(gameObject);
             }
 
-#if EASY_MOBILE
+
             if (enablePremiumFeatures)
             {
-                RuntimeManager.Init();
+                API.Initialize();
             }
-#endif
+
         }
     }
 }

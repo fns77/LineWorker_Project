@@ -177,7 +177,8 @@ namespace _LineWorker
 
             // Enable or disable premium stuff
             bool enablePremium = IsPremiumFeaturesEnabled();
-            leaderboardBtn.SetActive(enablePremium);
+            //leaderboardBtn.SetActive(enablePremium);
+            //leaderboardBtn.SetActive(enablePremium);
             shareBtn.SetActive(enablePremium);
             //iapPurchaseBtn.SetActive(enablePremium);
             removeAdsBtn.SetActive(enablePremium);
@@ -269,7 +270,6 @@ namespace _LineWorker
         void ShowWatchForCoinsBtn()
         {
             // Only show "watch for coins button" if a rewarded ad is loaded and premium features are enabled
-            #if EASY_MOBILE
         if (IsPremiumFeaturesEnabled() && AdDisplayer.Instance.CanShowRewardedAd() && AdDisplayer.Instance.watchAdToEarnCoins)
         {
             watchRewardedAdBtn.SetActive(true);
@@ -279,7 +279,6 @@ namespace _LineWorker
         {
             watchRewardedAdBtn.SetActive(false);
         }
-            #endif
         }
 
         void ShowDailyRewardBtn()
@@ -315,6 +314,7 @@ namespace _LineWorker
         {
             mainCanvas.SetActive(false);
             characterSelectionUI.SetActive(true);
+            AdDisplayer.Instance.ShowIntersialAds();
         }
 
         public void CloseCharacterSelectionScene()
@@ -325,24 +325,24 @@ namespace _LineWorker
 
         public void WatchRewardedAd()
         {
-            #if EASY_MOBILE
-        // Hide the button
-        watchRewardedAdBtn.SetActive(false);
 
-        AdDisplayer.CompleteRewardedAdToEarnCoins += OnCompleteRewardedAdToEarnCoins;
-        AdDisplayer.Instance.ShowRewardedAdToEarnCoins();
-            #endif
+            // Hide the button
+            watchRewardedAdBtn.SetActive(false);
+
+            AdDisplayer.CompleteRewardedAdToEarnCoins += OnCompleteRewardedAdToEarnCoins;
+            AdDisplayer.Instance.ShowRewardedAdToEarnCoins();
+
         }
 
         void OnCompleteRewardedAdToEarnCoins()
         {
-            #if EASY_MOBILE
-        // Unsubscribe
-        AdDisplayer.CompleteRewardedAdToEarnCoins -= OnCompleteRewardedAdToEarnCoins;
 
-        // Give the coins!
-        ShowRewardUI(AdDisplayer.Instance.rewardedCoins);
-            #endif
+            // Unsubscribe
+            AdDisplayer.CompleteRewardedAdToEarnCoins -= OnCompleteRewardedAdToEarnCoins;
+
+            // Give the coins!
+            ShowRewardUI(AdDisplayer.Instance.rewardedCoins);
+
         }
 
         public void GrabDailyReward()
@@ -371,56 +371,6 @@ namespace _LineWorker
         public void HideRewardUI()
         {
             rewardUI.GetComponent<RewardUIController>().Close();
-        }
-
-        public void ShowLeaderboardUI()
-        {
-            #if EASY_MOBILE
-        if (GameServices.IsInitialized())
-        {
-            GameServices.ShowLeaderboardUI();
-        }
-        else
-        {
-#if UNITY_IOS
-            NativeUI.Alert("Service Unavailable", "The user is not logged in to Game Center.");
-#elif UNITY_ANDROID
-            GameServices.Init();
-            #endif
-        }
-            #endif
-        }
-
-        public void ShowAchievementsUI()
-        {
-            #if EASY_MOBILE
-        if (GameServices.IsInitialized())
-        {
-            GameServices.ShowAchievementsUI();
-        }
-        else
-        {
-#if UNITY_IOS
-            NativeUI.Alert("Service Unavailable", "The user is not logged in to Game Center.");
-#elif UNITY_ANDROID
-            GameServices.Init();
-            #endif
-        }
-            #endif
-        }
-
-        public void PurchaseRemoveAds()
-        {
-            #if EASY_MOBILE
-        InAppPurchaser.Instance.Purchase(InAppPurchaser.Instance.removeAds);
-            #endif
-        }
-
-        public void RestorePurchase()
-        {
-            #if EASY_MOBILE
-        InAppPurchaser.Instance.RestorePurchase();
-            #endif
         }
 
         public void ShowShareUI()

@@ -101,9 +101,9 @@ namespace _LineWorker
             modal.SetActive(false);
             noImageMsg.SetActive(false);
             noClipMsg.SetActive(false);
-            toolbar.SetActive(true);
+            toolbar.SetActive(false);
             statusbar.SetActive(false);
-            giphyLogo.SetActive(false);
+            giphyLogo.SetActive(true);
             emLogo.SetActive(false);
 
 #if EASY_MOBILE_PRO

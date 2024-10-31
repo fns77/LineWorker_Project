@@ -1,9 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-
-#if EASY_MOBILE
-using EasyMobile;
-#endif
+using Gley.MobileAds;
 
 namespace _LineWorker
 {
@@ -50,8 +47,7 @@ namespace _LineWorker
             }
         }
 
-        #if EASY_MOBILE
-        public static event System.Action CompleteRewardedAdToRecoverLostGame;
+        //public static event System.Action CompleteRewardedAdToRecoverLostGame;
         public static event System.Action CompleteRewardedAdToEarnCoins;
 
         private static int gameCount = 0;
@@ -69,10 +65,17 @@ namespace _LineWorker
         void Start()
         {
             // Show banner ad
-            if (showBannerAd && !Advertising.IsAdRemoved())
+            if (showBannerAd)
             {
-                Advertising.ShowBannerAd(bannerAdPosition == BannerAdPos.Top ? BannerAdPosition.Top : BannerAdPosition.Bottom);
+                //API.ShowBanner(BannerPosition.Bottom,BannerType.Adaptive);
+                //API.ShowBanner(bannerAdPosition == BannerAdPos.Top ? BannerPosition.Top : BannerPosition.Bottom, BannerType.Adaptive);
+                Invoke("ShowBanner", 1f);
             }
+        }
+
+        public void ShowBanner()
+        {
+            API.ShowBanner(bannerAdPosition == BannerAdPos.Top ? BannerPosition.Top : BannerPosition.Bottom, BannerType.Adaptive);
         }
 
         void OnGameStateChanged(GameState newState, GameState oldState)
@@ -80,13 +83,13 @@ namespace _LineWorker
             if (newState == GameState.GameOver)
             {
                 // Show interstitial ad
-                if (showInterstitialAd && !Advertising.IsAdRemoved())
+                if (showInterstitialAd)
                 {
                     gameCount++;
 
                     if (gameCount >= gamesPerInterstitial)
                     {
-                        if (Advertising.IsInterstitialAdReady())
+                        if (API.IsInterstitialAvailable())
                         {
                             // Show default ad after some optional delay
                             StartCoroutine(ShowInterstitial(showInterstitialDelay));
@@ -104,55 +107,61 @@ namespace _LineWorker
             if (delay > 0)
                 yield return new WaitForSeconds(delay);
 
-            Advertising.ShowInterstitialAd();
+            API.ShowInterstitial();
         }
 
         public bool CanShowRewardedAd()
         {
-            return Advertising.IsRewardedAdReady();
+            return API.IsRewardedVideoAvailable();
         }
 
-        public void ShowRewardedAdToRecoverLostGame()
-        {
-            if (CanShowRewardedAd())
-            {
-                Advertising.RewardedAdCompleted += OnCompleteRewardedAdToRecoverLostGame;
-                Advertising.ShowRewardedAd();
-            }
-        }
+        //public void ShowRewardedAdToRecoverLostGame()
+        //{
+        //    if (CanShowRewardedAd())
+        //    {
+        //        Advertising.RewardedAdCompleted += OnCompleteRewardedAdToRecoverLostGame;
+        //        Advertising.ShowRewardedAd();
+        //    }
+        //}
 
-        void OnCompleteRewardedAdToRecoverLostGame(RewardedAdNetwork adNetwork, AdLocation location)
-        {
-            // Unsubscribe
-            Advertising.RewardedAdCompleted -= OnCompleteRewardedAdToRecoverLostGame;
+        //void OnCompleteRewardedAdToRecoverLostGame(RewardedAdNetwork adNetwork, AdLocation location)
+        //{
+        //    // Unsubscribe
+        //    Advertising.RewardedAdCompleted -= OnCompleteRewardedAdToRecoverLostGame;
 
-            // Fire event
-            if (CompleteRewardedAdToRecoverLostGame != null)
-            {
-                CompleteRewardedAdToRecoverLostGame();
-            }
-        }
+        //    // Fire event
+        //    if (CompleteRewardedAdToRecoverLostGame != null)
+        //    {
+        //        CompleteRewardedAdToRecoverLostGame();
+        //    }
+        //}
 
         public void ShowRewardedAdToEarnCoins()
         {
             if (CanShowRewardedAd())
             {
-                Advertising.RewardedAdCompleted += OnCompleteRewardedAdToEarnCoins;
-                Advertising.ShowRewardedAd();
+                API.ShowRewardedVideo(OnCompleteRewardedAdToEarnCoins);
+                
             }
         }
 
-        void OnCompleteRewardedAdToEarnCoins(RewardedAdNetwork adNetwork, AdLocation location)
+        public void ShowIntersialAds()
         {
-            // Unsubscribe
-            Advertising.RewardedAdCompleted -= OnCompleteRewardedAdToEarnCoins;
-
-            // Fire event
-            if (CompleteRewardedAdToEarnCoins != null)
+            if (API.IsInterstitialAvailable())
             {
-                CompleteRewardedAdToEarnCoins();
+                API.ShowInterstitial();
             }
         }
-        #endif
+
+        void OnCompleteRewardedAdToEarnCoins(bool completed)
+        {
+            if (completed)
+            {
+                if(CompleteRewardedAdToEarnCoins != null)
+                {
+                    CompleteRewardedAdToEarnCoins();
+                }
+            }
+        }
     }
 }
